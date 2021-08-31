@@ -91,6 +91,7 @@ export namespace MetaWorker {
     export type Task = {
       taskId: string;
       taskMethod: Enums.TaskMethod;
+      taskWorkspace: string;
       createAt?: number;
     };
   }
