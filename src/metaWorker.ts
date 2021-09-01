@@ -44,10 +44,42 @@ export namespace MetaWorker {
     export const CDNType = { ...CDNEnum };
 
     enum GitTaskMethod {
+      /**
+       * Create new repo from template archive zip file
+       *
+       * 1. Git init
+       * 2. Download zip archive and decompress
+       * 3. Copy template files to repo
+       * 4. Git commit and push
+       */
       CREATE_REPO_FROM_TEMPLATE = 'CREATE_REPO_FROM_TEMPLATE',
+      /**
+       * Update exist repo use template files
+       *
+       * 1. Git clone and checkout
+       * 2. Download zip archive and decompress
+       * 3. Copy template files to repo
+       * 4. Git commit and push
+       */
+      UPDATE_REPO_USE_TEMPLATE = 'UPDATE_REPO_USE_TEMPLATE',
+      /**
+       * Chekout repo from remote url, same as `actions/checkout`
+       */
+      CHECKOUT_REPO_FROM_REMOTE = 'CHECKOUT_REPO_FROM_REMOTE',
     }
-    export type TaskMethod = GitTaskMethod;
-    export const TaskMethod = { ...GitTaskMethod };
+    enum HexoTaskMethod {
+      /**
+       * Update Hexo config files from task config,
+       * include Hexo config and theme config
+       */
+      UPDATE_HEXO_CONFIG_FILES = 'UPDATE_HEXO_CONFIG_FILES',
+      /**
+       * Generate Hexo static files, aka `$ hexo generate`
+       */
+      GENERATE_HEXO_STATIC_FILES = 'GENERATE_HEXO_STATIC_FILES',
+    }
+    export type TaskMethod = GitTaskMethod | HexoTaskMethod;
+    export const TaskMethod = { ...GitTaskMethod, ...HexoTaskMethod };
   }
 
   export namespace Info {
