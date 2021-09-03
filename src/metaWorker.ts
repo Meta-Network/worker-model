@@ -108,6 +108,7 @@ export namespace MetaWorker {
       templateName: string;
       templateRepoUrl: string;
       templateBranchName: string;
+      themeName: string;
       templateType?: Enums.TemplateType;
     };
 
@@ -125,6 +126,10 @@ export namespace MetaWorker {
       taskMethod: Enums.TaskMethod;
       taskWorkspace: string;
       createAt?: number;
+      startAt?: number;
+      updateAt?: number;
+      finishAt?: number;
+      errorAt?: number;
     };
   }
 
