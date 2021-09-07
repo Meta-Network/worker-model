@@ -80,6 +80,13 @@ export namespace MetaWorker {
     }
     export type TaskMethod = GitTaskMethod | HexoTaskMethod;
     export const TaskMethod = { ...GitTaskMethod, ...HexoTaskMethod };
+
+    export enum TaskReportReason {
+      STARTED = 'STARTED',
+      FINISHED = 'FINISHED',
+      ERRORED = 'ERRORED',
+      HEALTH_CHECK = 'HEALTH_CHECK',
+    }
   }
 
   export namespace Info {
@@ -130,6 +137,12 @@ export namespace MetaWorker {
       updateAt?: number;
       finishAt?: number;
       errorAt?: number;
+    };
+
+    export type TaskReport = {
+      reason: Enums.TaskReportReason;
+      timestamp: number;
+      data?: unknown;
     };
   }
 
