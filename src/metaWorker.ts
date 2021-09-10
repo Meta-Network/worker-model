@@ -172,7 +172,8 @@ export namespace MetaWorker {
       Info.CmsSiteInfo &
       Info.CmsSiteConfig &
       Info.Template &
-      Info.Theme;
+      Info.Theme &
+      Info.Git;
     export type HexoWorkerTackConfig = Info.Task & HexoWorkerConfig;
   }
 }
