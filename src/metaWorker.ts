@@ -77,6 +77,10 @@ export namespace MetaWorker {
        * Generate Hexo static files, aka `$ hexo generate`
        */
       GENERATE_HEXO_STATIC_FILES = 'GENERATE_HEXO_STATIC_FILES',
+      /**
+       * Create Hexo post, aka `$ hexo new`
+       */
+      CREATE_HEXO_POST_FILES = 'CREATE_HEXO_POST_FILES',
     }
     export type TaskMethod = GitTaskMethod | HexoTaskMethod;
     export const TaskMethod = { ...GitTaskMethod, ...HexoTaskMethod };
@@ -115,8 +119,15 @@ export namespace MetaWorker {
       templateName: string;
       templateRepoUrl: string;
       templateBranchName: string;
-      themeName: string;
       templateType?: Enums.TemplateType;
+    };
+
+    export type Theme = {
+      themeName: string;
+      themeRepo: string;
+      themeBranch: string;
+      themeType?: Enums.TemplateType;
+      isPackage?: boolean;
     };
 
     export type Git = {
@@ -148,14 +159,19 @@ export namespace MetaWorker {
 
   export namespace Configs {
     export type GitHubWorkerConfig = Info.UCenterUser &
-      Info.CmsSiteInfo &
-      Info.CmsSiteConfig &
       Info.Template &
+      Info.Theme &
       Info.Git;
-
     export type GitHubWorkerTaskConfig = Info.Task & GitHubWorkerConfig;
 
     export type GitWorkerConfig = GitHubWorkerConfig;
     export type GitWorkerTaskConfig = GitHubWorkerTaskConfig;
+
+    export type HexoWorkerConfig = Info.UCenterUser &
+      Info.CmsSiteInfo &
+      Info.CmsSiteConfig &
+      Info.Template &
+      Info.Theme;
+    export type HexoWorkerTackConfig = Info.Task & HexoWorkerConfig;
   }
 }
