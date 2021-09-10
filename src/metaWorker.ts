@@ -159,6 +159,7 @@ export namespace MetaWorker {
 
   export namespace Configs {
     export type GitHubWorkerConfig = Info.UCenterUser &
+      Info.CmsSiteConfig &
       Info.Template &
       Info.Theme &
       Info.Git;
