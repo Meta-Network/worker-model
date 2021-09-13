@@ -1,6 +1,6 @@
 {
   "name": "@metaio/worker-model",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Meta worker model",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

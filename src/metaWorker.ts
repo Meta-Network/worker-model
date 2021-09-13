@@ -194,6 +194,6 @@ export namespace MetaWorker {
     export type PublishConfig = Info.CmsSiteInfo &
       Info.CmsSiteConfig &
       Info.Git;
-    export type PublishTackConfig = Info.Task & PublishConfig;
+    export type PublishTaskConfig = Info.Task & PublishConfig;
   }
 }
