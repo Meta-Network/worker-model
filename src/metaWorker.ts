@@ -51,8 +51,10 @@ export namespace MetaWorker {
        * 2. Download zip archive and decompress
        * 3. Copy template files to repo
        * 4. Git commit and push
+       *
+       * Original name: CREATE_REPO_FROM_TEMPLATE
        */
-      CREATE_REPO_FROM_TEMPLATE = 'CREATE_REPO_FROM_TEMPLATE',
+      GIT_INIT_PUSH = 'GIT_INIT_PUSH',
       /**
        * Update exist repo use template files
        *
@@ -60,27 +62,43 @@ export namespace MetaWorker {
        * 2. Download zip archive and decompress
        * 3. Copy template files to repo
        * 4. Git commit and push
+       *
+       * Original name: UPDATE_REPO_USE_TEMPLATE
        */
-      UPDATE_REPO_USE_TEMPLATE = 'UPDATE_REPO_USE_TEMPLATE',
+      GIT_OVERWRITE_PUSH = 'GIT_OVERWRITE_PUSH',
       /**
        * Chekout repo from remote url, same as `actions/checkout`
        */
-      CHECKOUT_REPO_FROM_REMOTE = 'CHECKOUT_REPO_FROM_REMOTE',
+      GIT_CLONE_CHECKOUT = 'GIT_CLONE_CHECKOUT',
+      /**
+       * Commit files and push to remote
+       *
+       * 1. Git add
+       * 2. Git commit
+       * 3. Git push
+       */
+      GIT_COMMIT_PUSH = 'GIT_COMMIT_PUSH',
     }
     enum HexoTaskMethod {
       /**
        * Update Hexo config files from task config,
        * include Hexo config and theme config
+       *
+       * Original name: UPDATE_HEXO_CONFIG_FILES
        */
-      UPDATE_HEXO_CONFIG_FILES = 'UPDATE_HEXO_CONFIG_FILES',
+      HEXO_UPDATE_CONFIG = 'HEXO_UPDATE_CONFIG',
       /**
        * Generate Hexo static files, aka `$ hexo generate`
+       *
+       * Original name: GENERATE_HEXO_STATIC_FILES
        */
-      GENERATE_HEXO_STATIC_FILES = 'GENERATE_HEXO_STATIC_FILES',
+      HEXO_GENERATE_DEPLOY = 'HEXO_GENERATE_DEPLOY',
       /**
        * Create Hexo post, aka `$ hexo new`
+       *
+       * Original name: CREATE_HEXO_POST_FILES
        */
-      CREATE_HEXO_POST_FILES = 'CREATE_HEXO_POST_FILES',
+      HEXO_CREATE_POST = 'HEXO_CREATE_POST',
     }
     export type TaskMethod = GitTaskMethod | HexoTaskMethod;
     export const TaskMethod = { ...GitTaskMethod, ...HexoTaskMethod };
@@ -158,22 +176,24 @@ export namespace MetaWorker {
   }
 
   export namespace Configs {
-    export type GitHubWorkerConfig = Info.UCenterUser &
-      Info.CmsSiteConfig &
-      Info.Template &
-      Info.Theme &
-      Info.Git;
-    export type GitHubWorkerTaskConfig = Info.Task & GitHubWorkerConfig;
-
-    export type GitWorkerConfig = GitHubWorkerConfig;
-    export type GitWorkerTaskConfig = GitHubWorkerTaskConfig;
-
-    export type HexoWorkerConfig = Info.UCenterUser &
+    /**
+     * All about deploy needed configs
+     */
+    export type DeployConfig = Info.UCenterUser &
       Info.CmsSiteInfo &
       Info.CmsSiteConfig &
       Info.Template &
       Info.Theme &
       Info.Git;
-    export type HexoWorkerTackConfig = Info.Task & HexoWorkerConfig;
+    export type DeployTaskConfig = Info.Task & DeployConfig;
+
+    /**
+     * All about publish needed configs
+     * e.g. site title, domain, git info
+     */
+    export type PublishConfig = Info.CmsSiteInfo &
+      Info.CmsSiteConfig &
+      Info.Git;
+    export type PublishTackConfig = Info.Task & PublishConfig;
   }
 }
