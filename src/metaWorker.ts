@@ -184,11 +184,18 @@ export namespace MetaWorker {
       timestamp: number;
       data?: unknown;
     };
+
+    export type TaskStepChain = {
+      taskSteps: Enums.TaskMethod[];
+      taskStepIndex: number;
+      taskStepResults: Record<Enums.TaskMethod, any>;
+    };
   }
 
   export namespace Configs {
     type BaseTaskConfig = {
       task: Info.Task;
+      taskStepChain?: Info.TaskStepChain;
     };
 
     /**
