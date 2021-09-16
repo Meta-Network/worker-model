@@ -157,6 +157,17 @@ export namespace MetaWorker {
       gitLastCommitHash?: string | null;
     };
 
+    export type Post = {
+      title: string;
+      source: string;
+      cover?: string;
+      summary?: string;
+      category?: string;
+      tags?: string[];
+      createdAt?: string;
+      updatedAt?: string;
+    };
+
     export type Task = {
       taskId: string;
       taskMethod: Enums.TaskMethod;
@@ -176,24 +187,38 @@ export namespace MetaWorker {
   }
 
   export namespace Configs {
+    type BaseTaskConfig = {
+      task: Info.Task;
+    };
+
     /**
      * All about deploy needed configs
      */
-    export type DeployConfig = Info.UCenterUser &
-      Info.CmsSiteInfo &
-      Info.CmsSiteConfig &
-      Info.Template &
-      Info.Theme &
-      Info.Git;
-    export type DeployTaskConfig = Info.Task & DeployConfig;
+    export type DeployConfig = {
+      user: Info.UCenterUser;
+      site: Info.CmsSiteInfo & Info.CmsSiteConfig;
+      template: Info.Template;
+      theme: Info.Theme;
+      git: Info.Git;
+    };
+    export type DeployTaskConfig = BaseTaskConfig & DeployConfig;
+
+    export type PostConfig = {
+      user: Info.UCenterUser;
+      site: Info.CmsSiteInfo & Info.CmsSiteConfig;
+      post: Info.Post;
+      git: Info.Git;
+    };
+    export type PostTaskConfig = BaseTaskConfig & PostConfig;
 
     /**
      * All about publish needed configs
      * e.g. site title, domain, git info
      */
-    export type PublishConfig = Info.CmsSiteInfo &
-      Info.CmsSiteConfig &
-      Info.Git;
-    export type PublishTaskConfig = Info.Task & PublishConfig;
+    export type PublishConfig = {
+      site: Info.CmsSiteInfo & Info.CmsSiteConfig;
+      git: Info.Git;
+    };
+    export type PublishTaskConfig = BaseTaskConfig & PublishConfig;
   }
 }
