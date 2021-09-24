@@ -43,6 +43,17 @@ export namespace MetaWorker {
     export type CDNType = CDNEnum;
     export const CDNType = { ...CDNEnum };
 
+    enum DNSEnum {
+      CLOUDFLARE = 'CLOUDFLARE',
+    }
+    export type DnsProviderType = DNSEnum;
+    export const DnsProviderType = { ...DNSEnum };
+
+    export enum DnsRecordType {
+      A = 'A',
+      CNAME = 'CNAME',
+    }
+
     enum GitTaskMethod {
       /**
        * Create new repo from template archive zip file
@@ -100,8 +111,18 @@ export namespace MetaWorker {
        */
       HEXO_CREATE_POST = 'HEXO_CREATE_POST',
     }
-    export type TaskMethod = GitTaskMethod | HexoTaskMethod;
-    export const TaskMethod = { ...GitTaskMethod, ...HexoTaskMethod };
+    enum DNSTaskMethod {
+      /**
+       * Update dns record
+       */
+      DNS_UPDATE_RECORD = 'DNS_UPDATE_RECORD',
+    }
+    export type TaskMethod = GitTaskMethod | HexoTaskMethod | DNSTaskMethod;
+    export const TaskMethod = {
+      ...GitTaskMethod,
+      ...HexoTaskMethod,
+      ...DNSTaskMethod,
+    };
 
     export enum TaskReportReason {
       STARTED = 'STARTED',
@@ -131,6 +152,7 @@ export namespace MetaWorker {
       language?: string;
       timezone?: string;
       domain?: string;
+      metaSpacePrefix?: string;
     };
 
     export type Template = {
@@ -166,6 +188,18 @@ export namespace MetaWorker {
       tags?: string[];
       createdAt?: string;
       updatedAt?: string;
+    };
+
+    export type DnsRecord = {
+      type: Enums.DnsRecordType;
+      name: string;
+      content: string;
+    };
+
+    export type Dns = {
+      providerType: Enums.DnsProviderType;
+      env: Record<string, any>;
+      record: DnsRecord;
     };
 
     export type Task = {
@@ -227,5 +261,14 @@ export namespace MetaWorker {
       git: Info.Git;
     };
     export type PublishTaskConfig = BaseTaskConfig & PublishConfig;
+
+    /**
+     * All about dns configs
+     */
+    export type DnsConfig = {
+      site: Info.CmsSiteInfo & Info.CmsSiteConfig;
+      dns: Info.Dns;
+    };
+    export type DnsTaskConfig = BaseTaskConfig & DnsConfig;
   }
 }
