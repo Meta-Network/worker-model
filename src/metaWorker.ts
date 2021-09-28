@@ -117,11 +117,19 @@ export namespace MetaWorker {
        */
       DNS_UPDATE_RECORD = 'DNS_UPDATE_RECORD',
     }
-    export type TaskMethod = GitTaskMethod | HexoTaskMethod | DNSTaskMethod;
+    enum PublishTaskMethod {
+      PUBLISH_GITHUB_PAGES = 'PUBLISH_GITHUB_PAGES',
+    }
+    export type TaskMethod =
+      | GitTaskMethod
+      | HexoTaskMethod
+      | DNSTaskMethod
+      | PublishTaskMethod;
     export const TaskMethod = {
       ...GitTaskMethod,
       ...HexoTaskMethod,
       ...DNSTaskMethod,
+      ...PublishTaskMethod,
     };
 
     export enum TaskReportReason {
@@ -202,6 +210,11 @@ export namespace MetaWorker {
       record: DnsRecord;
     };
 
+    export type Publish = {
+      publishDir: string;
+      publishBranch: string;
+    };
+
     export type Task = {
       taskId: string;
       taskMethod: Enums.TaskMethod;
@@ -258,6 +271,7 @@ export namespace MetaWorker {
      */
     export type PublishConfig = {
       site: Info.CmsSiteInfo & Info.CmsSiteConfig;
+      publish: Info.Publish;
       git: Info.Git;
     };
     export type PublishTaskConfig = BaseTaskConfig & PublishConfig;
