@@ -110,6 +110,7 @@ export namespace MetaWorker {
        * Original name: CREATE_HEXO_POST_FILES
        */
       HEXO_CREATE_POST = 'HEXO_CREATE_POST',
+      HEXO_UPDATE_POST = 'HEXO_UPDATE_POST',
     }
     enum DNSTaskMethod {
       /**
