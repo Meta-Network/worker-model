@@ -89,6 +89,10 @@ export namespace MetaWorker {
        * 3. Git push
        */
       GIT_COMMIT_PUSH = 'GIT_COMMIT_PUSH',
+      /**
+       * Overwrite site themes.
+       */
+      GIT_OVERWRITE_THEME = 'GIT_OVERWRITE_THEME',
     }
     enum HexoTaskMethod {
       /**
@@ -175,7 +179,7 @@ export namespace MetaWorker {
       themeName: string;
       themeRepo: string;
       themeBranch: string;
-      themeType?: Enums.TemplateType;
+      themeType: Enums.TemplateType;
       isPackage?: boolean;
     };
 
